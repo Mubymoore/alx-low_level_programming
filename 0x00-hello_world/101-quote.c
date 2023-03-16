@@ -1,6 +1,7 @@
 #include <stdio.h>
 #define STDOUT_FILENO 1
 #include <unistd.h>
+
 /**
  * main - Entry point
  *
