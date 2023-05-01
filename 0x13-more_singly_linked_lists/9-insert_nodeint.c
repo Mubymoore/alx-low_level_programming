@@ -11,45 +11,42 @@
  * Return: the address of the new node, or NULL if it
  * failed.
  */
+
 listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 {
-	listint_t *new, *curr, *prev, *temp;
-	unsigned int i = 0;
+	unsigned int i;
+	listint_t *new;
+	listint_t *h;
 
-	if (!(*head) && idx != 0)
+	h = *head;
+
+	if (idx != 0)
+	{
+		for (i = 0; i < idx - 1 && h != NULL; i++)
+		{
+			h = h->next;
+		}
+	}
+
+	if (h == NULL && idx != 0)
 		return (NULL);
 
-	curr = *head;
-	prev = curr;
-
-	new = (listint_t *)malloc(sizeof(listint_t));
-	if (!new || !head)
+	new = malloc(sizeof(listint_t));
+	if (new == NULL)
 		return (NULL);
 
 	new->n = n;
-	new->next = NULL;
 
 	if (idx == 0)
 	{
-		new->next = curr;
+		new->next = *head;
 		*head = new;
-		return (new);
 	}
-
-	while (curr)
+	else
 	{
-		temp = curr;
-
-		if (i == idx)
-		{
-			new->next = curr;
-			prev->next = new;
-			return (new);
-		}
-		curr = curr->next;
-		prev = temp;
-		i++;
+		new->next = h->next;
+		h->next = new;
 	}
 
-	return (NULL);
+	return (new);
 }
